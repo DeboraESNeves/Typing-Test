@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  
+  <title>Typing Speed Test</title>
+  <link rel="stylesheet" href="/corrected.css">
+
+  <style>
+    [hidden] {     
+      display: none;
+    }
+  </style>
+</head>
+<body class="debug">
+  <a href="#main" class="visually-hidden skip-link">Skip to main content</a>
+
+  <header class="header">
+    <div class="container">
+      <div class="header__content">
+        <a href="/" class="header__homelink">
+          <picture>
+            <source media="(max-width: 700px)" srcset="/assets/images/logo-small.svg">
+            <img class="header__logo" src="/assets/images/logo-large.svg" alt="Type as fast as you can">
+          </picture>
+        </a>
+        <div class="header__content__persBest">
+          <img src="assets/images/icon-personal-best.svg" alt="Icon Personal Best" width="21" height="18">
+          <p class="personal__best">
+            <span class="label"></span>
+            <span id="personal-best">0</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main" id="main">
+    <div class="wrapper current" data-screen="home typing">
+      <div class="current__info">
+        <p>WPM: <span id="wpm-current">0</span></p>
+        <p>Accuracy: <span id="accuracy-current">100%</span></p>
+        <p>Time: <span id="time-current">0</span></p>
+      </div>
+
+      <div class="current__selection">
+        <div class="selection__block">
+          <label for="difficulty">Difficulty:</label>
+          <div class="options__buttons" id="difficulty__buttons">
+            <button class="btn__emh" type="button" value="easy">Easy</button>
+            <button class="btn__emh" type="button" value="medium">Medium</button>
+            <button class="btn__emh" type="button" value="hard">Hard</button>
+          </div>
+
+          <select id="difficulty" class="options__select">
+            <option class="selected" value="easy">Easy</option>
+            <option class="selected" value="medium">Medium</option>
+            <option class="selected" value="hard">Hard</option>
+          </select>
+        </div>
+
+        <div class="selection__block">
+          <label for="mode">Mode:</label>
+          <div class="options__buttons" id="mode-buttons">
+            <button class="btn__emh" type="button" value="timed">Timed(60s)</button>
+            <button class="btn__emh" type="button" value="passage">Passage</button>
+          </div>
+
+          <select id="mode" class="options__select">
+            <option class="selected" value="timed">Timed(60s)</option>
+            <option class="selected" value="passage">Passage</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <section class="hero" data-screen="home">
+      <div class="container">
+        <div class="hero__start">
+          <button id="start-btn" type="button">
+            Start Typing Test
+          </button>
+          <p>Or click the text and start typing</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="home__started" data-screen="typing" hidden>
+      <div class="container" id="game-container" tabindex="0">
+        <div id="text-display"></div>
+        <div id="cursor" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section class="home__baseline" data-screen="baseline" hidden>
+      <div class="container page__spacing">
+        <img class="restart" src="assets/images/icon-completed.svg" alt="icon-completed" width="64" height="64">
+        <div class="text">
+          <h1 class="t__baseline">Baseline Established!</h1>
+          <p class="p__baseline">You’ve set the bar. Now the real challenge begins—time to beat it.</p>
+        </div>
+        <img class="star" src="assets/images/pattern-star-1.svg" alt="star" width="74" height="74">
+        <img class="star" src="assets/images/pattern-star-2.svg" alt="star" width="32" height="32">
+        <div class="metrics">
+          <p>WPM:<span class="wpm__baseline">0</span></p>
+          <p>Accuracy:<span class="accuracy__baseline">100%</span></p>
+          <p>Characters:
+            <span class="characters__line">
+              <span class="c__characters">0</span>/<span class="i__characters">0</span>
+            </span>
+          </p>
+        </div>
+        <button class="goagain__button">Beat This Score<img src="assets/images/icon-restart.svg" class="restart__icon" width="20" height="20"></button>
+      </div>
+    </section>
+
+    <section class="home__completed" data-screen="completed" hidden>
+      <div class="container page__spacing">
+        <img class="restart" src="assets/images/icon-completed.svg" alt="icon-completed" width="64" height="64">
+        <div class="text">
+          <h1 class="t__baseline">Test Complete!</h1>
+          <p class="p__baseline">Solid run. Keep pushing to beat your high score.</p>
+        </div>
+        <img class="star" src="assets/images/pattern-star-1.svg" alt="star" width="74" height="74">
+        <img class="star" src="assets/images/pattern-star-2.svg" alt="star" width="32" height="32">
+        <div class="metrics">
+          <p>WPM:<span class="wpm__baseline">0</span></p>
+          <p>Accuracy:<span class="accuracy__baseline">100%</span></p>
+          <p>Characters:
+            <span class="characters__line">
+              <span class="c__characters">0</span>/<span class="i__characters">0</span>
+            </span>
+          </p>
+        </div>
+        <button class="goagain__button">Go Again<img src="assets/images/icon-restart.svg" class="restart__icon" width="20" height="20"></button>
+      </div>
+    </section>
+
+    <section class="home__score-smashed" data-screen="newRecord" hidden>
+      <div class="container page__spacing">
+        <img class="nw__pb" src="assets/images/icon-new-pb.svg" alt="icon new personal best" width="80" height="80">
+        <div class="text">
+          <h1 class="t__baseline">High Score Smashed!</h1>
+          <p class="p__baseline">You’re getting faster. That was incredible typing.</p>
+        </div>
+        <div class="metrics">
+          <p>WPM:<span class="wpm__baseline">0</span></p>
+          <p>Accuracy:<span class="accuracy__baseline">100%</span></p>
+          <p>Characters:
+            <span class="characters__line">
+              <span class="c__characters">0</span>/<span class="i__characters">0</span>
+            </span>
+          </p>
+        </div>
+        <button class="goagain__button">Beat This Score<img src="assets/images/icon-restart.svg" class="restart__icon" width="20" height="20"></button>
+        <img class="conffeti" src="assets/images/pattern-confetti.svg" alt="confetti" width="1440" height="326">
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
