@@ -576,13 +576,19 @@ p {
         text-decoration: underline;
     }
 
-    #cursor {
+    .char.cursor {
+        position: relative;
+    }
+
+    .char.cursor::before {
+        content: "";
         position: absolute;
+        left: 0;
+        top: 0;
         width: 2px;
-        height: 2rem;
+        height: 100%;
         background-color: white;
-        animation: blink 1s infinite;
-        pointer-events: none;
+        animation: blink 1s step-end infinite;
     }
 
     @keyframes blink {
