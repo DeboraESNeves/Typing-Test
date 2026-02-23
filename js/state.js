@@ -113,29 +113,6 @@ export function setResults({wpm, accuracy, correct, incorrect}) {
     state.results.incorrect = incorrect;
 }
 
-//personal best
-
-export function loadPersonalBest(){
-    const stored = localStorage.getItem("personalBest");
-    if (stored) {
-        state.user.personalBest = Number(stored);
-        state.user.hasBaseline = true;
-    }
-}
-
-export function updatePersonalBestIfNeeded(currentWpm){
-    if(
-        state.user.personalBest === null ||
-        currentWpm > state.user.personalBest
-    ) {
-        state.user.personalBest = currentWpm;
-        state.user.hasBaseline = true
-        localStorage.setItem("personalBest", currentWpm);
-        return true; //new record
-    }
-    return false;
-}
-
 // full reset
 
 export function resetTestState(){

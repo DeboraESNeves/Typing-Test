@@ -3,7 +3,7 @@ import { getRandomPassage } from "../services/dataService.js";
 import { processTyping } from "../services/typingService.js";
 import { startTimer, stopTimer } from "../services/timerService.js";
 import { calculateMetrics } from "../services/metricsService.js";
-import { updatePersonalBestIfNeeded } from "../services/storageService.js";
+import { updatePersonalBestIfNeeded, hasBaseline } from "../services/storageService.js";
 import { render } from "./render.js";
 import { showConfetti } from "./feedback.js";
 
@@ -72,6 +72,8 @@ function handleKeydown(event) {
 
   processTyping(event);
   render();
+  console.log("currentIndex:", state.typing.currentIndex, "textLength:", state.passage.text.length);
+
   if (
     state.settings.mode === "passage" &&
     state.typing.currentIndex >= state.passage.text.length
@@ -106,18 +108,22 @@ function finishTest() {
   stopTimer();
   gameContainer.removeEventListener("keydown", handleKeydown);
 
+  const elapsedTime = state.settings.mode === "timed" 
+  ? state.settings.timeLimit - state.timer.time 
+  : state.timer.time;
+
   const metrics = calculateMetrics({
-    text:   state.passage.text,
-    typing: state.typing,
-    time:   state.timer.time,
-    mode:   state.settings.mode
+    correctChars: state.typing.correctChars,
+    errors:       state.typing.errors,
+    time:         elapsedTime,
   });
 
   state.results = metrics;
 
+  const isFirstTest = !hasBaseline();
   const isNewRecord = updatePersonalBestIfNeeded(metrics.wpm);
 
-  if (!state.user.hasBaseline) {
+  if (isFirstTest) {
     setScreen("baseline");
   } else if (isNewRecord) {
     setScreen("newRecord");
