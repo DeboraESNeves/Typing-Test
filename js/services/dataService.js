@@ -5,6 +5,13 @@ export async function loadPassages() {
     try {
         const response = await fetch("./data.json");
         passagesByDifficulty = await response.json();
+
+        Object.values(passagesByDifficulty).forEach(list => {
+            list.forEach(passage => {
+                passage.text = sanitizeText(passage.text);
+            });
+        });
+
         if (!response.ok) throw new Error("Fail to load");
         return passagesByDifficulty;
     } catch (error) {
@@ -29,4 +36,12 @@ export function getRandomPassage(difficulty){
 
     const randomIndex = Math.floor(Math.random() * list.length);
     return list[randomIndex];
+}
+
+function sanitizeText(text) {
+    return text
+        .replace(/[—–]/g, "-")
+        .replace(/[""]/g, '"')
+        .replace(/['']/g, "'")
+        .replace(/…/g, "...");
 }

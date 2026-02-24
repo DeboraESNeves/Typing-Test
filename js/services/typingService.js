@@ -6,7 +6,7 @@ export function processTyping(event) {
   const currentIndex = state.typing.currentIndex;
 
   if (["Shift", "Control", "Alt", "Meta", "CapsLock", "Tab",
-       "ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(key)) return;
+       "ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Dead"].includes(key)) return;
 
   if (key === "Backspace") {
     if (currentIndex === 0) return;
