@@ -1,10 +1,6 @@
+import { state } from "../state.js";
+
 const PERSONAL_BEST_KEY = "typing_personal_best";
-export function loadPersonalBest() {
-    const stored = localStorage.getItem(PERSONAL_BEST_KEY);
-    if (!stored) return null;
-    const value = Number(stored);
-    return Number.isNaN(value) ? null : value;
-}
 
 export function getPersonalBest(){
     const stored = localStorage.getItem(PERSONAL_BEST_KEY);
@@ -23,6 +19,7 @@ export function updatePersonalBestIfNeeded(currentWpm) {
 
   if (storedBest === null || currentWpm > storedBest) {
     setPersonalBest(currentWpm);
+    state.user.personalBest = currentWpm;
     return true;
   }
   return false;
