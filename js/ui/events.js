@@ -71,6 +71,19 @@ function handleKeydown(event) {
   if (state.status !== "running") return;
 
   processTyping(event);
+
+  const elapsedTime = state.settings.mode === "timed"
+    ? state.settings.timeLimit - state.timer.time
+    : state.timer.time;
+
+  if (elapsedTime > 0) {
+    state.results = calculateMetrics({
+      correctChars: state.typing.correctChars,
+      errors:       state.typing.errors,
+      time:         elapsedTime,
+    });
+  }
+
   render();
   console.log("currentIndex:", state.typing.currentIndex, "textLength:", state.passage.text.length);
 
