@@ -521,19 +521,28 @@ p {
         min-height: 100vh;
     }
 
-    .home__score-smashed .container {
+    .home__score-smashed {
         position: relative;
         min-height: 100vh;
-        padding-bottom: 180px;
+        overflow: hidden;
+
+        background-image: url("assets/images/pattern-confetti.svg");
+        background-repeat: no-repeat;
+        background-position: bottom center;
+        background-size: cover;
+
+        animation: confettiRise 1s ease-out;
     }
 
-    .conffeti {
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        max-width: none;
-        z-index: 0;
+    @keyframes confettiRise {
+        from {
+            background-position: bottom -200px center;
+            opacity: 0;
+        }
+        to {
+            background-position: bottom center;
+            opacity: 1;
+        }
     }
 
     /*main container*/
@@ -556,7 +565,6 @@ p {
     #text-display {
         position: relative;
     }
-
 
     .char {
         display: inline;
@@ -599,6 +607,29 @@ p {
             opacity: 0;
         }
     }
+
+    .restart__wrapper {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-block-start: 3rem;
+    }
+
+
+    .restart__button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        background-color: var(--c-neutral-800);
+        color: var(--c-neutral-0);
+        font-family: "Sora", Arial, Helvetica, sans-serif;
+        font-weight: 600;
+        padding: 10px 16px;
+        border-radius: 9px;
+        border: none;
+    }
+
 }
 
 /*debug mode

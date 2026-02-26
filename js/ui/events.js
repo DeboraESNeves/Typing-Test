@@ -11,7 +11,7 @@ console.log("events.js carregado!");
 
 const startBtn         = document.getElementById("start-btn");
 const gameContainer    = document.getElementById("game-container");
-const restartButtons   = document.querySelectorAll(".goagain__button");
+const restartButtons   = document.querySelectorAll(".goagain__button, .restart__button");
 const difficultySelect = document.getElementById("difficulty");
 const modeSelect       = document.getElementById("mode");
 const difficultyButtons = document.querySelectorAll("#difficulty__buttons button");
@@ -42,7 +42,10 @@ if (startBtn) {
   console.error("ERRO: #start-btn não encontrado!");
 }
 
-restartButtons.forEach(btn => btn.addEventListener("click", startTest));
+restartButtons.forEach(btn => {
+  console.log("Botão registrado:", btn.textContent.trim());
+  btn.addEventListener("click", startTest);
+});
 
 function handleKeydown(event) {
   if (event.key === "Backspace" || event.key === " ") {
@@ -96,6 +99,8 @@ function handleKeydown(event) {
 }
 
 function startTest() {
+  console.log("startTest chamando");
+  
   gameContainer.removeEventListener("keydown", handleKeydown);
 
   resetTestState();
