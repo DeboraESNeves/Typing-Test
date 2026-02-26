@@ -500,6 +500,7 @@ p {
         font-weight: 700;
         padding: 10px 16px;
         border-radius: 12px;
+        border: none;
     }
 
     .restart__icon {

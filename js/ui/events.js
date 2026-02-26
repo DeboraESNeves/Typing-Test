@@ -91,7 +91,8 @@ function handleKeydown(event) {
   console.log("currentIndex:", state.typing.currentIndex, "textLength:", state.passage.text.length);
 
   if (
-    state.typing.currentIndex >= state.passage.text.length
+    state.typing.currentIndex >= state.passage.text.length &&
+    state.typing.pendingErrors === 0
   ) {
     finishTest();
   }

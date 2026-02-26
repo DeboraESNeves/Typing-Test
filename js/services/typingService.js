@@ -11,6 +11,12 @@ export function processTyping(event) {
   if (key === "Backspace") {
     if (currentIndex === 0) return;
 
+    const removedChar = state.typing.input[currentIndex - 1];
+    const expectedChar = text[currentIndex - 1];
+    if (removedChar !== expectedChar) {
+      state.typing.pendingErrors--;
+    }
+
     state.typing.input = state.typing.input.slice(0, -1);
     state.typing.currentIndex = state.typing.input.length;
     return;

@@ -27,7 +27,8 @@ export const state = {
         input: "",
         currentIndex: 0,    // cursor position
         errors: 0,          // total errors (even corrected ones)
-        correctChars: 0
+        correctChars: 0,
+        pendingErrors: 0
     },
 
     timer: {
@@ -77,6 +78,7 @@ export function resetTyping(){
     state.typing.currentIndex = 0;
     state.typing.errors = 0;
     state.typing.correctChars = 0;
+    state.typing.pendingErrors = 0;
 }
 
 export function updateTyping(inputLength, isCorrect){
@@ -86,6 +88,7 @@ export function updateTyping(inputLength, isCorrect){
         state.typing.correctChars++;
     } else {
         state.typing.errors++;
+        state.typing.pendingErrors++;
     }
 }
 
