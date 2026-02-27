@@ -123,6 +123,7 @@ export function resetTestState(){
     setScreen("home");
     resetTyping();
     stopTimer();
+    state.timer.time = 0;
     state.results = {
         wpm: 0,
         accuracy: 0,
