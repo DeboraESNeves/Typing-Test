@@ -19,6 +19,7 @@ function renderScreen(){
         }
     });
 
+    document.body.dataset.currentScreen = state.ui.screen;
 }
 
 function renderPassage() {
@@ -61,7 +62,10 @@ function renderStats() {
 
   if (timeEl)     timeEl.textContent     = state.timer.time;
   if (wpmEl)      wpmEl.textContent      = state.results.wpm;
-  if (accuracyEl) accuracyEl.textContent = `${state.results.accuracy}%`;
+  if (accuracyEl) {
+    accuracyEl.textContent = `${state.results.accuracy}%`;
+    accuracyEl.classList.toggle("perfect", state.results.accuracy === 100);
+  }
   if (pbEl)       pbEl.textContent       = state.user.personalBest || 0;
 }
 
@@ -78,7 +82,9 @@ function renderResults() {
   const incorrectEl = activeSection.querySelector(".i__characters");
 
   if (wpmEl)       wpmEl.textContent       = state.results.wpm;
-  if (accuracyEl)  accuracyEl.textContent  = `${state.results.accuracy}%`;
+  if (accuracyEl) {
+    accuracyEl.textContent = `${state.results.accuracy}%`;
+    accuracyEl.classList.toggle("perfect", state.results.accuracy === 100);}
   if (correctEl)   correctEl.textContent   = state.results.correct;
   if (incorrectEl) incorrectEl.textContent = state.results.incorrect;
 }
