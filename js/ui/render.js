@@ -60,7 +60,7 @@ function renderStats() {
   const accuracyEl = document.getElementById("accuracy-current");
   const pbEl       = document.getElementById("personal-best");
 
-  if (timeEl)     timeEl.textContent     = state.timer.time;
+  if (timeEl)     timeEl.textContent     = state.timer.formatted || "0:00";
   if (wpmEl)      wpmEl.textContent      = state.results.wpm;
   if (accuracyEl) {
     accuracyEl.textContent = `${state.results.accuracy}%`;

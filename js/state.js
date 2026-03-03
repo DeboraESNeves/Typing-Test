@@ -33,6 +33,7 @@ export const state = {
 
     timer: {
         time: 0,
+        formatted : "0:00",
         isRunning: false
     },
 
@@ -124,6 +125,7 @@ export function resetTestState(){
     resetTyping();
     stopTimer();
     state.timer.time = 0;
+    state.timer.formatted = "0:00";
     state.results = {
         wpm: 0,
         accuracy: 0,

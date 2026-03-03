@@ -22,6 +22,10 @@ difficultyButtons.forEach(button => {
     setDifficulty(button.value);
     difficultyButtons.forEach(b => b.setAttribute("aria-pressed", "false"));
     button.setAttribute("aria-pressed", "true");
+
+    if (state.ui.screen === "typing") {
+      startTest();
+    }
   });
 });
 
@@ -31,10 +35,27 @@ modeButtons.forEach(button => {
     modeButtons.forEach(b => b.setAttribute("aria-pressed", "false"));
     button.setAttribute("aria-pressed", "true");
   });
+
+  if (state.ui.screen === "typing") {
+      startTest();
+    }
 });
 
-difficultySelect.addEventListener("change", () => setDifficulty(difficultySelect.value));
-modeSelect.addEventListener("change",       () => setMode(modeSelect.value));
+difficultySelect.addEventListener("change", () => {
+  setDifficulty(difficultySelect.value);
+  
+  if (state.ui.screen === "typing") {
+    startTest();
+  }
+});
+
+modeSelect.addEventListener("change", () => {
+  setMode(modeSelect.value);
+  
+  if (state.ui.screen === "typing") {
+    startTest();
+  }
+});
 
 if (startBtn) {
   startBtn.addEventListener("click", startTest);
@@ -100,6 +121,8 @@ function handleKeydown(event) {
 
 function startTest() {
   console.log("startTest chamando");
+
+  stopTimer();
   
   gameContainer.removeEventListener("keydown", handleKeydown);
 
