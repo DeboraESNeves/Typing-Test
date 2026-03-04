@@ -1,8 +1,4 @@
-# Frontend Mentor - Typing Speed Test solution
-
-This is a solution to the [Typing Speed Test challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/typing-speed-test). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
-
-## Table of contents
+# Table of contents
 
 - [Overview](#overview)
   - [The challenge](#the-challenge)
@@ -11,12 +7,8 @@ This is a solution to the [Typing Speed Test challenge on Frontend Mentor](https
 - [My process](#my-process)
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
   - [Useful resources](#useful-resources)
 - [Author](#author)
-- [Acknowledgments](#acknowledgments)
-
-**Note: Delete this note and update the table of contents based on what sections you keep.**
 
 ## Overview
 
@@ -26,86 +18,105 @@ Users should be able to:
 
 - View the optimal layout for the interface depending on their device's screen size
 - See hover and focus states for all interactive elements on the page
+- Track their typing speed in real-time (WPM)
+- View accuracy percentage during typing
+- Choose between different difficulty levels (Easy, Medium, Hard)
+- Select between Timed (60s) or Passage mode
+- See their personal best score
+- Restart the test at any time
 
 ### Screenshot
 
 ![](./screenshot.jpg)
 
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
-
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it. 
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
-
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Live Site URL: [https://debora-typing-test.vercel.app/](https://debora-typing-test.vercel.app/)
 
 ## My process
+
+I wanted to create a frontend application to test my skills with something colorful and engaging. I found the Frontend Mentor challenge and used the Figma file they provided.
+
+I studied the application's business rules and sketched out how it could be implemented. The first step was thinking about the structure, so I created a state class and organized classes into folders (services, ui). To keep it organized, I delegated responsibilities to each class so they could work together cohesively.
+
+I coded the HTML first, then organized all colors, fonts, sizes, etc. in my CSS file using CSS custom properties. After that, I built a basic design to visualize the project. I created functions in JavaScript and fixed bugs along the way, constantly adjusting the CSS to achieve the final result. Throughout the process, I was committing changes to GitHub regularly. The result was a useful and playful typing speed test.
 
 ### Built with
 
 - Semantic HTML5 markup
-- CSS custom properties
+- CSS custom properties (CSS Variables)
 - Flexbox
 - CSS Grid
 - Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
-
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
+- Vanilla JavaScript (ES6+)
+- Object-oriented programming
+- State management pattern
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+This project strengthened my understanding of several key concepts:
 
-To see how you can add code snippets, see below:
+**1. State Management**: I implemented a centralized state management system to handle the application's complex state transitions between different screens (home, typing, baseline, completed, new record).
 
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
-```css
-.proud-of-this-css {
-  color: papayawhip;
-}
-```
 ```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
+export const state = {
+    status: "idle",
+    // idle, running, finished
+
+    ui: {
+        screen: "home",
+        //home, typing, completed, baseline, newRecord
+    },
 }
 ```
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+**2. Responsive CSS with Custom Properties**: I learned to effectively use CSS custom properties combined with media queries to create a fully responsive design that adapts seamlessly across devices.
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+```css
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 16px;
+}
 
-### Continued development
+@media (min-width: 800px) {
+    .container {
+        padding-inline: 32px;
+    }
+}
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+@media (min-width: 1000px) {
+    .container {
+        padding-inline: 112px;
+    }
+}
+```
 
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+**3. Real-time Character Validation**: I implemented a character-by-character validation system that provides instant feedback to users as they type.
+
+```js
+if (currentIndex >= text.length) return;
+
+if (key.length === 1) {
+    const expected = text[currentIndex];
+    const isCorrect = key === expected;
+
+    state.typing.input += key;
+
+    updateTyping(state.typing.input.length, isCorrect);
+}
+```
+
+**4. Separation of Concerns**: I organized my code into distinct classes with specific responsibilities (UI management, game logic, statistics calculation), making the codebase more maintainable and scalable.
 
 ### Useful resources
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
-
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+- [Coder Coder builds](https://youtu.be/jBE_Oj2FK4E?si=FoXky101UiivksJ3) - This helped me especially with the design. She organized the CSS root variables so smoothly, it made the process much easier. I really liked this pattern and will use it going forward.
+- [Coding With Dawid](https://youtu.be/E_tZH9R_zi8?si=1ZxLRShOJtwSEIRi) - When I was struggling with the typing and validation process, this video helped me understand the bond between the HTML and the backend logic.
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
+- LinkedIn - [Debora Neves](https://www.linkedin.com/in/debora-neves-)
 
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+Hi! I'm an I.T. Student hungry to learn! I've been creating projects in Java and C#, but I also have an artistic side. Looking forward to an opportunity to show all my potential!
