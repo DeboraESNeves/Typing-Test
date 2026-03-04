@@ -34,11 +34,11 @@ modeButtons.forEach(button => {
     setMode(button.value);
     modeButtons.forEach(b => b.setAttribute("aria-pressed", "false"));
     button.setAttribute("aria-pressed", "true");
-  });
-
-  if (state.ui.screen === "typing") {
+    
+    if (state.ui.screen === "typing") {
       startTest();
     }
+  });
 });
 
 difficultySelect.addEventListener("change", () => {
